@@ -66,7 +66,13 @@ install_binary() {
   chmod +x "$tmpdir/$BINARY_NAME"
 
   dest=''
-  if [ -d /usr/local/bin ] && [ -w /usr/local/bin ]; then
+  if [ -n "${TERMIFY_BIN_DIR:-}" ]; then
+    bindir="$TERMIFY_BIN_DIR"
+    mkdir -p "$bindir"
+    cp "$tmpdir/$BINARY_NAME" "$bindir/$BINARY_NAME"
+    chmod +x "$bindir/$BINARY_NAME"
+    dest="$bindir/$BINARY_NAME"
+  elif [ -d /usr/local/bin ] && [ -w /usr/local/bin ]; then
     cp "$tmpdir/$BINARY_NAME" "/usr/local/bin/$BINARY_NAME"
     dest="/usr/local/bin/$BINARY_NAME"
   elif [ -d /usr/local/bin ] && command -v sudo >/dev/null 2>&1; then
@@ -75,7 +81,7 @@ install_binary() {
     sudo chmod +x "/usr/local/bin/$BINARY_NAME"
     dest="/usr/local/bin/$BINARY_NAME"
   else
-    bindir="${TERMIFY_BIN_DIR:-$HOME/.local/bin}"
+    bindir="$HOME/.local/bin"
     mkdir -p "$bindir"
     cp "$tmpdir/$BINARY_NAME" "$bindir/$BINARY_NAME"
     chmod +x "$bindir/$BINARY_NAME"
