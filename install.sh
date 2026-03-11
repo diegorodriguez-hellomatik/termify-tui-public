@@ -2,7 +2,7 @@
 
 set -e
 
-RAW_BASE_URL="${TERMIFY_PUBLIC_BASE_URL:-https://raw.githubusercontent.com/diegorodriguez-hellomatik/termify-tui-public/main}"
+RAW_BASE_URL="${TERMIFY_PUBLIC_BASE_URL:-https://raw.githubusercontent.com/diegorodriguez-hellomatik/termify-tui-public/v0.1.0-bootstrap}"
 BINARY_NAME="termify"
 
 if [ -t 1 ]; then
